@@ -13,6 +13,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                poppins: "Poppins",
+                jakarta: "Plus Jakarta Sans",
+                bubblegum: "Bubblegum Sans"
             },
         },
     },
