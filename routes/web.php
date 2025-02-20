@@ -20,6 +20,8 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
+Route::get('/auth-google-redirect', [AuthController::class, 'google_redirect']);
+Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
 
 Route::group(['middleware' => ['auth', 'role:user', 'status']], function(){
     Route::get('/user', function() {
