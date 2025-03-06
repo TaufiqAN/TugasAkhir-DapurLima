@@ -25,7 +25,7 @@ Route::get('/auth-google-callback', [AuthController::class, 'google_callback']);
 
 Route::group(['middleware' => ['auth', 'role:user', 'status']], function(){
     Route::get('/user', function() {
-        return 'halaman user';
+        return view('welcome');
     });
 });
 Route::group(['middleware' => ['auth', 'role:user']], function(){
@@ -39,3 +39,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function(){
     // ->name('dashboard');
 });
 Route::get('/logout', [AuthController::class, 'logout']);
+
+use App\Http\Controllers\ProfileController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+});

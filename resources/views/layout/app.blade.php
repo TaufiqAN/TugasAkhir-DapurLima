@@ -21,5 +21,7 @@
     </head>
     <body class="font-poppins bg-white">
         @include('layout.navbar')
+        @yield('content')
+        
     </body >
 </html>
