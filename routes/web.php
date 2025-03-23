@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResepController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
@@ -35,13 +38,19 @@ Route::group(['middleware' => ['auth', 'role:user']], function(){
     Route::put('/verify/{unique_id}', [VerificationController::class, 'update']);
 });
 Route::group(['middleware' => ['auth', 'role:admin']], function(){
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-    // ->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    // ->middleware('auth');
+    ->name('dashboard');
 });
 Route::get('/logout', [AuthController::class, 'logout']);
-
-use App\Http\Controllers\ProfileController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 });
+
+Route::get('/resep-detail', function () {
+    return view('resep.detail');
+})->name('resep.detail');
+
+Route::resource('kategori', KategoriController::class);
+Route::resource('resep', ResepController::class);

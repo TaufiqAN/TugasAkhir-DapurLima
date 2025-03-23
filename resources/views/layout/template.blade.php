@@ -9,7 +9,6 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
 
         <!-- Styles / Scripts -->
@@ -21,38 +20,16 @@
             </style>
         @endif
     </head>
-    <body class="font-poppins bg-white">
-        @include('layout.navbar')
-        @yield('content')
+    <body class="bg-white">
+        @yield('kategori')
+        @yield('resep')
 
 
+        {{-- Modal Tambah kategori --}}
         <script>
-            // Fungsi tambah bahan
-            document.getElementById('add-bahan').addEventListener('click', function() {
-                let container = document.getElementById('bahan-container');
-                let div = document.createElement('div');
-                div.classList.add('flex', 'items-center', 'space-x-2', 'mt-2');
-                div.innerHTML = `<input type="text" name="bahan[]" class="w-full border border-gray-300 rounded-lg p-2">
-                                 <button type="button" class="text-red-500 font-bold text-xl remove-item">🗑</button>`;
-                container.appendChild(div);
-            });
-        
-            // Fungsi tambah cara membuat
-            document.getElementById('add-cara').addEventListener('click', function() {
-                let container = document.getElementById('cara-container');
-                let div = document.createElement('div');
-                div.classList.add('flex', 'items-center', 'space-x-2', 'mt-2');
-                div.innerHTML = `<input type="text" name="cara_membuat[]" class="w-full border border-gray-300 rounded-lg p-2">
-                                 <button type="button" class="text-red-500 font-bold text-xl remove-item">🗑</button>`;
-                container.appendChild(div);
-            });
-        
-            // Fungsi hapus bahan atau cara membuat
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('remove-item')) {
-                    e.target.parentElement.remove();
-                }
-            });
+            function toggleModal() {
+                document.getElementById('kategoriModal').classList.toggle('hidden');
+            }
         </script>
     </body >
 </html>

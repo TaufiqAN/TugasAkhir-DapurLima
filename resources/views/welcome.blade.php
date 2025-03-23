@@ -311,7 +311,31 @@
                     </p>
                 </div>
             </div>
-            
+
+
+            @if(isset($allResep) && count($allResep) > 0)
+            @foreach ($allResep as $resep)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden relative">
+                    <img src="{{ asset('storage/' . $resep->image) }}" 
+                         alt="{{ $resep->nama_resep }}" 
+                         class="w-full h-80 object-cover transition-transform duration-300 hover:scale-105">
+                    
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold text-gray-900">{{ $resep->nama_resep }}</h3>
+                        <p class="text-gray-600 text-sm my-2">Deskripsi: {{ $resep->deskripsi }}</p>
+                    </div>
+                </div>
+            @endforeach
+            @else
+                <p class="text-gray-500 text-center">Tidak ada resep yang tersedia.</p>
+            @endif
+
+            @foreach ($allKategori as $kategori)
+                <tr>
+                    <td>{{ $kategori->nama_kategori }}</td>
+                </tr>
+            @endforeach
+        
 
     
             <!-- Card 2 -->
@@ -453,7 +477,7 @@
 
          <!-- Button Lihat Semua -->
         <div class="flex justify-center m-10">
-            <a href="#" class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300">
+            <a href="" class="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-lg hover:bg-green-700 transition-all duration-300">
                 Lihat Semua
             </a>
         </div>
