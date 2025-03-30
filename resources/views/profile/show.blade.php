@@ -32,63 +32,39 @@
                 </svg>                  
                 <h2 class="text-lg font-bold text-gray-800">Tersimpan</h2>
             </div>
-            <a href="#" class="text-green-600 font-semibold hover:underline">Lihat Semua</a>
+            <a href="{{ route('profile.profile') }}" class="text-green-600 font-semibold hover:underline">Lihat Semua</a>
         </div>
     
         <div class="space-y-4">
             <!-- Card 1 -->
-            <div class="flex items-center rounded-lg border-2 p-4">
-                <img src="https://www.enakeco.com/wp-content/uploads/2023/02/Siomay-Bandung-Khas-Enak-Eco-optimized.jpg" alt="Xiaomay Batak" class="w-44 h-32 object-cover rounded-lg">
-                <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Xiaomay Batak</h3>
-                    <p class="text-gray-600 text-sm">Panduan cara membuat siomay yang enak dan gurih dengan resep yang murah dan mudah dibuat.</p>
-                    <div class="flex items-center text-gray-700 text-sm mt-2">
-                        <span class="flex items-center mr-4">
-                            <svg class="w-4 h-4 me-1 text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"/>
-                            </svg>
-
-                            10 Menit
-                        </span>
-                        <span class="flex items-center mr-4">
-                            <svg class="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-2.67 0-5.06-1.33-6.47-3.36C6.99 14.1 9.25 13 12 13s5.01 1.1 6.47 2.64C17.06 18.67 14.67 20 12 20z"></path>
-                            </svg>
-                            3 Orang
-                        </span>
-                        <span class="flex items-center text-yellow-500">
-                            ⭐ 4.5
-                        </span>
+            @foreach ($savedResep as $save)
+                @if ($save->resep)
+                    <div class="flex items-center rounded-lg border-2 p-4">
+                        <img src="{{ asset('storage/' . $save->resep->image) }}" alt="{{ $save->resep->nama_resep }}" class="w-44 h-32 object-cover rounded-lg">
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-gray-800">{{ $save->resep->nama_resep }}</h3>
+                            <p class="text-gray-600 text-sm mb-6">{{ \Illuminate\Support\Str::limit($save->resep->deskripsi, 120, '...') }}</p>
+                            <div class="flex items-center text-gray-700 text-sm mt-2">
+                                <span class="flex items-center mr-4">
+                                    <svg class="w-4 h-4 mr-1 text-green-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"/>
+                                    </svg>
+                                    {{ $save->resep->waktu }} Menit
+                                </span>
+                                <span class="flex items-center mr-4">
+                                    <svg class="w-4 h-4 mr-1 text-green-700 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                        <path fill-rule="evenodd" d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z" clip-rule="evenodd"/>
+                                    </svg>
+                                    {{ $save->resep->porsi }} Orang
+                                </span>
+                                <span class="flex items-center text-yellow-500">
+                                    ⭐ 4.5
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="flex items-center rounded-lg border-2 p-4">
-                <img src="https://asset.kompas.com/crops/mgNs2uNygJcH--dQo_NAEFl56pY=/65x0:907x561/1200x800/data/photo/2020/11/02/5f9f812b3e9fa.jpg" alt="Xiaomay Batak" class="w-44 h-32 object-cover rounded-lg">
-                <div class="ml-4">
-                    <h3 class="text-lg font-semibold text-gray-800">Xiaomay Batak</h3>
-                    <p class="text-gray-600 text-sm">Panduan cara membuat siomay yang enak dan gurih dengan resep yang murah dan mudah dibuat.</p>
-                    <div class="flex items-center text-gray-700 text-sm mt-2">
-                        <span class="flex items-center mr-4">
-                            <svg class="w-4 h-4 me-1 text-green-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3M3.22302 14C4.13247 18.008 7.71683 21 12 21c4.9706 0 9-4.0294 9-9 0-4.97056-4.0294-9-9-9-3.72916 0-6.92858 2.26806-8.29409 5.5M7 9H3V5"/>
-                            </svg>
-
-                            10 Menit
-                        </span>
-                        <span class="flex items-center mr-4">
-                            <svg class="w-4 h-4 text-green-600 mr-1" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-2.67 0-5.06-1.33-6.47-3.36C6.99 14.1 9.25 13 12 13s5.01 1.1 6.47 2.64C17.06 18.67 14.67 20 12 20z"></path>
-                            </svg>
-                            3 Orang
-                        </span>
-                        <span class="flex items-center text-yellow-500">
-                            ⭐ 4.5
-                        </span>
-                    </div>
-                </div>
-            </div>
+                @endif
+            @endforeach
         </div>
     </div>
 </div>

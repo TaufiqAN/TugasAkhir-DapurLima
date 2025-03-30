@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <!-- Bahan -->
+        {{-- <!-- Bahan -->
         <div class="mt-8 grid md:grid-cols-2 gap-6">
             <div class="bg-blue-100 p-4 rounded-lg shadow">
                 <h3 class="text-lg font-bold text-blue-700">Bahan</h3>
@@ -84,6 +84,39 @@
                 </ul>
                 <button type="submit" name="tambah_cara" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Langkah</button>
             </div>
+        </div> --}}
+
+        <!-- Bahan & Cara Membuat -->
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+
+            <!-- Bahan -->
+            <div class="bg-blue-100 p-4 rounded-lg shadow">
+                <h3 class="text-lg font-bold text-blue-700">Bahan</h3>
+                <ul id="bahan-list" class="mt-2 list-none space-y-3">
+                    @foreach(json_decode($resep->bahan) as $index => $bahann)
+                        <li class="flex items-center space-x-3">
+                            <input type="text" name="bahan[]" value="{{ $bahann }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                            <button type="button" class="text-red-500 font-bold remove-bahan">✖</button>
+                        </li>
+                    @endforeach
+                </ul>
+                <button type="button" id="tambah-bahan" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Bahan</button>
+            </div>
+
+            <!-- Cara Membuat -->
+            <div class="bg-green-100 p-4 rounded-lg shadow">
+                <h3 class="text-lg font-bold text-green-700">Cara Membuat</h3>
+                <ul id="cara-list" class="mt-2 list-none space-y-3">
+                    @foreach(json_decode($resep->cara_membuat) as $index => $cara_membuatt)
+                        <li class="flex items-center space-x-3">
+                            <input type="text" name="cara_membuat[]" value="{{ $cara_membuatt }}" class="w-full p-2 border border-gray-300 rounded-lg">
+                            <button type="button" class="text-red-500 font-bold remove-cara">✖</button>
+                        </li>
+                    @endforeach
+                </ul>
+                <button type="button" id="tambah-cara" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Langkah</button>
+            </div>
+
         </div>
         
 

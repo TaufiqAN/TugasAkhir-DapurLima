@@ -18,6 +18,7 @@ class ResepController extends Controller
         return view('resep.index', compact('allResep'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -154,8 +155,8 @@ class ResepController extends Controller
         'porsi' => $request->porsi,
         'kesulitan' => $request->kesulitan,
         'kategori_id' => $request->kategori_id,
-        'bahan' => json_encode($request->bahan), // Simpan bahan baru
-        'cara_membuat' => json_encode($request->cara_membuat), // Simpan langkah baru
+        'bahan' => json_encode($request->bahan),
+        'cara_membuat' => json_encode($request->cara_membuat),
     ]);
 
     return redirect()->route('resep.index')->with('success', 'Resep berhasil diperbarui!');

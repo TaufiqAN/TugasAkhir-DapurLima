@@ -13,7 +13,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"> --}}
         <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] md:w-[80%] bg-white border border-gray-200 shadow-lg rounded-full px-6 py-3 z-50">
             <div class="flex flex-wrap items-center justify-between">
-                <a href="#" class="flex items-center space-x-3">
+                <a href="{{ route('home') }}" class="flex items-center space-x-3">
                     <img src="{{ asset('images/logo.png') }}" class="h-9" alt="DapurLima Logo" />
                     <span class="self-center text-2xl font-bubblegum dark:text-black">DapurLima.</span>
                 </a>

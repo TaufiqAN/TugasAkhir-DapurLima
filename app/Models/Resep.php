@@ -24,5 +24,15 @@ class Resep extends Model
     {
         return $this->belongsto(Kategori::class,'kategori_id');
     }
+
+    public function user()
+    {
+        return $this->hasMany(Save::class, 'resep_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
 

@@ -71,6 +71,7 @@
 
             {{-- @section('kategori') --}}
                 
+            {{-- Kategori --}}
             <div class="w-full text-sm text-left rtl:text-right text-gray-500 mb-4">
                 <div class="bg-white shadow-lg rounded-lg p-6">
                     <div class="flex justify-between items-center mb-6">
@@ -90,6 +91,7 @@
                                 <tr>
                                     <th class="px-4 py-3 w-16">No</th>
                                     <th class="px-4 py-3">Nama Kategori</th>
+                                    <th class="px-4 py-3 text-center">Jumlah Resep</th>
                                     <th class="px-4 py-3 text-center w-32">Aksi</th>
                                 </tr>
                             </thead>
@@ -98,6 +100,7 @@
                                 <tr class="hover:bg-gray-100 transition duration-200">
                                     <td class="px-4 py-3 text-gray-700 font-medium">{{ $key + 1 }}</td>
                                     <td class="px-4 py-3 text-gray-900 font-medium">{{ $kategori->nama_kategori }}</td>
+                                    <td class="px-4 py-3 text-center font-semibold text-green-700">{{ $kategori->resep_count }}</td>
                                     <td class="px-4 py-3 text-center">
                                         <div class="flex justify-center space-x-3">
                                             <a href="{{ route('kategori.edit', $kategori->id) }}" class="text-blue-500 hover:text-blue-700 transition">

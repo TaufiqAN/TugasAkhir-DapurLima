@@ -12,7 +12,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $allKategori = Kategori::all();
+        $allKategori = Kategori::withCount('resep')->get();
         return view('kategori.index', compact('allKategori'));
     }
 

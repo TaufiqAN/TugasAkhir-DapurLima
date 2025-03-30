@@ -14,6 +14,6 @@ class Kategori extends Model
 
     public function resep(): HasMany
     {
-        return $this->hasMany(Resep::class);
+        return $this->hasMany(Resep::class, 'kategori_id');
     }
 }
