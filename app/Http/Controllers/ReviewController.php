@@ -32,5 +32,24 @@ class ReviewController extends Controller
         $reviews = Review::where('resep_id', $resep_id)->with('user')->latest()->get();
         return response()->json($reviews);
     }
+
+
+    public function ReviewLike(Review $review)
+    {
+        $user = Auth::user();
+
+        if ($review->LikedBy($user)) {
+            $user->likeReview()->detach($review->id);
+            $liked = false;
+        } else {
+            $user->likeReview()->attach($review->id);
+            $liked = true;
+        }
+
+        return response()->json([
+            'liked' => $liked,
+            'count' => $review->likes()->count(),
+        ]);
+    }
     
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\Resep;
 use Illuminate\Http\Request;
 
@@ -69,5 +70,13 @@ class UserResepController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function kategori($slug)
+    {
+        $kategori = Kategori::where('slug', $slug)->firstOrFail();
+        $reseps = Resep::where('kategori_id', $kategori->id)->latest()->paginate(12);
+
+        return view('resep.semua_kategori', compact('reseps', 'kategori'));
     }
 }

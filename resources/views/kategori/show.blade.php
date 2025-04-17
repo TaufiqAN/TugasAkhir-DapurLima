@@ -2,23 +2,41 @@
 
 @section('content')
 
-<div class="max-w-3xl mx-auto mt-40 p-8 bg-white shadow-lg rounded-lg border border-gray-200">
+<div class="max-w-3xl mx-auto mt-36 p-8 bg-white shadow-lg rounded-lg border border-gray-200">
     <div class="flex items-center space-x-4">
         <h2 class="text-3xl font-semibold text-gray-800">Detail Kategori</h2>
     </div>
 
     <!-- Informasi Kategori -->
     <div class="mt-6 space-y-4">
+        <!-- Nama Kategori -->
         <div class="flex bg-gray-100 p-4 rounded-lg shadow-sm">
-            <span class="text-gray-500 font-medium me-4">Nama Kategori: </span>
+            <span class="text-gray-500 font-medium me-4">Nama Kategori:</span>
             <span class="text-gray-900 font-semibold">{{ $kategori->nama_kategori }}</span>
         </div>
+    
+        <!-- Gambar Kategori -->
+        <div class="flex flex-col bg-gray-100 p-4 rounded-lg shadow-sm">
+            <span class="text-gray-500 font-medium mb-2">Gambar:</span>
+            <img src="{{ asset('storage/' . $kategori->image) }}" alt="Gambar Kategori"
+            class="w-32 h-32 object-cover rounded-lg border">
+        </div>
+        
+        <!-- Warna Background -->
+        <div class="flex items-center bg-gray-100 p-4 rounded-lg shadow-sm">
+            <span class="text-gray-500 font-medium me-4">Warna:</span>
+            <div class="w-10 h-10 rounded-full border" style="background-color: {{ $kategori->background_color }}"></div>
+            <span class="ml-3 text-gray-900 font-semibold">{{ $kategori->background_color }}</span>
+        </div>
+        
 
-        <div class="flex  bg-gray-100 p-4 rounded-lg shadow-sm">
-            <span class="text-gray-500 font-medium me-4">Tanggal Dibuat: </span>
-            <span class="text-gray-900 font-semibold">{{ $kategori->created_at->format('d M Y ') }}</span>
+        <!-- Tanggal Dibuat -->
+        <div class="flex bg-gray-100 p-4 rounded-lg shadow-sm">
+            <span class="text-gray-500 font-medium me-4">Tanggal Dibuat:</span>
+            <span class="text-gray-900 font-semibold">{{ $kategori->created_at->format('d M Y') }}</span>
         </div>
     </div>
+    
 
     <!-- Tombol Navigasi -->
     <div class="mt-6 flex justify-between">

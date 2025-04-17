@@ -12,7 +12,7 @@
                 <p class="text-gray-500 text-sm">{{ $user->email }}</p>
                 <!-- Button Container -->
                 <div class="flex mt-3">
-                    <a href="#" class="flex items-center px-3 text-sm py-1 border-2 border-gray-800 text-gray-900 font-medium rounded-xl transition duration-300 hover:bg-gray-800 hover:text-white">
+                    <a href="/logout" class="flex items-center px-3 text-sm py-1 border-2 border-gray-800 text-gray-900 font-medium rounded-xl transition duration-300 hover:bg-gray-800 hover:text-white">
                         <svg class="w-6 h-6 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                         </svg>
@@ -34,7 +34,17 @@
             </div>
             <a href="{{ route('profile.profile') }}" class="text-green-600 font-semibold hover:underline">Lihat Semua</a>
         </div>
-    
+
+        
+        @if ($savedResep->isEmpty())
+        <div class="flex flex-col items-center justify-center text-center text-gray-600 py-6">
+            <svg class="w-16 h-16 mb-3 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m4 12 2.66667-1 2.66666 1L12 11l2.6667 1 2.6666-1L20 12m-1 5H5v1c0 1.1046.89543 2 2 2h10c1.1046 0 2-.8954 2-2v-1ZM5 9.00003h14v-1c0-2.20914-1.7909-4-4-4H9c-2.20914 0-4 1.79086-4 4v1ZM18.5 14h-13c-.82843 0-1.5.6716-1.5 1.5 0 .8285.67157 1.5 1.5 1.5h13c.8284 0 1.5-.6715 1.5-1.5 0-.8284-.6716-1.5-1.5-1.5Z"/>
+              </svg>                            
+            <p class="text-lg font-semibold">Belum ada yang disimpan</p>
+            <p class="text-sm text-gray-500">Segera tambahkan resep-resep lezat yang ingin Anda coba!</p>
+        </div>
+        @else
         <div class="space-y-4">
             <!-- Card 1 -->
             @foreach ($savedResep as $save)
@@ -57,8 +67,18 @@
                                     </svg>
                                     {{ $save->resep->porsi }} Orang
                                 </span>
-                                <span class="flex items-center text-yellow-500">
-                                    ⭐ 4.5
+
+                                <!-- Rating -->
+                                <span class="flex items-center gap-1">
+                                    @if($save->resep->total_rating)
+                                        <span class="text-yellow-500 font-semibold text-sm">
+                                            ★ {{ number_format($save->resep->total_rating, 1) }} 
+                                        </span>
+                                    @else
+                                        <span class="text-yellow-500 font-semibold text-sm">
+                                            ★ {{ number_format($save->resep->total_rating, 1) }} 
+                                        </span>
+                                    @endif
                                 </span>
                             </div>
                         </div>
@@ -66,6 +86,7 @@
                 @endif
             @endforeach
         </div>
+        @endif
     </div>
 </div>
 

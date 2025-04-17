@@ -12,6 +12,24 @@
         <!-- Detail Resep -->
         <div>
             <h1 class="text-4xl font-bold text-green-700">{{ $resep->nama_resep }}</h1>
+            
+            {{-- Total Rating --}}
+            @if($resep->total_rating)
+                <div class="flex items-center gap-1 my-1">
+                    <span class="text-yellow-500 font-semibold text-xl">
+                        ★ {{ number_format($resep->total_rating, 1) }} 
+                    </span>
+                    <span class="text-sm text-gray-500"> ({{ $resep->reviews->count() }} Ulasan)</span>
+                </div>
+            @else
+                <div class="flex items-center gap-1 my-1">
+                    <span class="text-yellow-500 font-semibold text-xl">
+                        ★ {{ number_format($resep->total_rating, 1) }} 
+                    </span>
+                    <span class="text-sm text-gray-500"> ({{ $resep->reviews->count() }} Ulasan)</span>
+                </div>
+            @endif
+
             <p class="mt-2 text-gray-700">{{ $resep->deskripsi }}</p>
 
             <!-- Informasi Resep -->
@@ -103,18 +121,82 @@
         <p class="text-red-500">Silakan <a href="{{ route('login') }}" class="text-blue-500">login</a> untuk menambahkan ulasan.</p>
     @endauth
     
-    {{-- Semua Ulasan --}}
-    <div class="mt-20">
-        <h2 class="text-lg font-semibold">Ulasan</h2>
-        <div id="reviews">
-            @foreach ($resep->reviews as $review)
-                <div>
-                    {{ $review->rating }}★
-                    <p>{{ $review->ulasan }}</p></div>
-                    <strong>{{ $review->user->name }}</strong> 
-            @endforeach
+    <div class="p-4 bg-white border border-gray-200 rounded-xl mt-4">
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Ulasan 
+                <span class="font-normal text-gray-400">{{ $resep->reviews->count() }}</span>
+            </h2>
         </div>
+
+        @if ($resep->reviews->isEmpty())
+        <div class="flex flex-col items-center justify-center text-center text-gray-600 py-6">
+            <svg class="w-16 h-16 mb-3 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11.5c.07 0 .14-.007.207-.021.095.014.193.021.293.021h2a2 2 0 0 0 2-2V7a1 1 0 0 0-1-1h-1a1 1 0 1 0 0 2v11h-2V5a2 2 0 0 0-2-2H5Zm7 4a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h.5a1 1 0 1 1 0 2H13a1 1 0 0 1-1-1Zm-6 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1ZM7 6a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H7Zm1 3V8h1v1H8Z" clip-rule="evenodd"/>
+              </svg>              
+            <p class="text-lg font-semibold">Belum ada ulasan</p>
+            <p class="text-sm text-gray-500">Jadilah yang pertama memberikan ulasan pada resep ini!</p>
+        </div>
+        @else
+        @foreach ($resep->reviews as $review)
+        <ul class="pt-4 mt-4 space-y-2 font-medium border-t dark:border-gray-600">
+
+            {{-- Ulasan --}}
+            <p class="font-semibold text-lg text-gray-800">{{ $review->user->name }}</p>
+            <div class="flex items-center text-yellow-400">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $review->rating)
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.974a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.974c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.974a1 1 0 00-.364-1.118L2.045 9.4c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.287-3.974z" />
+                        </svg>
+                    @else
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.974a1 1 0 00.95.69h4.178c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.974c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.175 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.974a1 1 0 00-.364-1.118L2.045 9.4c-.783-.57-.38-1.81.588-1.81h4.178a1 1 0 00.95-.69l1.287-3.974z" />
+                        </svg>
+                    @endif
+                @endfor
+            </div>
+            <p class="text-gray-700">{{ $review->ulasan }}</p>
+            <p><span class="text-xs text-gray-500">{{ $review->created_at->diffForHumans() }}</span></p>
+
+            {{-- Like --}}
+            <div class="review" data-review-id="{{ $review->id }}">
+                <button onclick="toggleLike(this)" class="flex items-center space-x-2 transition">
+                    <span class="like-icon">
+                        <svg class="w-6 h-6 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
+                        </svg>
+                    </span>
+                    <span class="like-count text-sm">{{ $review->likes_count ?? 0 }}</span>
+                </button>
+            </div>
+            
+
+            
+
+            <button onclick="toggleReplyForm({{ $review->id }})" class="mt-2 text-sm text-blue-600 hover:underline">Balas</button>
+
+            <div id="reply-form-{{ $review->id }}" class="hidden mt-2">
+                <textarea id="reply-content-{{ $review->id }}" class="w-full border border-gray-300 rounded-lg p-2 text-sm"></textarea>
+                <button onclick="submitReply({{ $review->id }})" class="mt-2 inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Kirim</button>
+                <span id="loading-{{ $review->id }}" class="hidden text-sm text-gray-500 ml-2">Mengirim...</span>
+            </div>
+
+            {{-- Balasan --}}
+            <div id="reply-container-{{ $review->id }}" class="mt-2 space-y-2">
+                @foreach ($review->replies as $reply)
+                    <div class="border-l-4 border-gray-700 pl-4 mt-2">
+                        <p class="font-semibold text-lg text-gray-800">{{ $reply->user->name }}</p>
+                        <p class="text-gray-700">{{ $reply->content }}</p>
+                        <p><span class="text-xs text-gray-500">{{ $reply->created_at->diffForHumans() }}</span></p>
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+        @endif
     </div>
+    
 
 
     {{-- Resep lainnya --}}
@@ -182,13 +264,15 @@
 
                     <!-- Rating -->
                     <span class="flex items-center gap-1">
-                        <svg class="w-4 h-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 
-                                    2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 
-                                    19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146
-                                    .633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-                        </svg>
-                        <span class="font-semibold text-yellow-400">4.8</span>
+                        @if($resep->total_rating)
+                            <span class="text-yellow-500 font-semibold text-sm">
+                                ★ {{ number_format($resep->total_rating, 1) }} 
+                            </span>
+                        @else
+                            <span class="text-yellow-500 font-semibold text-sm">
+                                ★ {{ number_format($resep->total_rating, 1) }} 
+                            </span>
+                        @endif
                     </span>
                 </p>
             </div>

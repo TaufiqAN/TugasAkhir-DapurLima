@@ -9,8 +9,8 @@
     <div class="w-full h-2/5 bg-[#2EAF2A]"></div>
 </div>
 
-<div class="p-4 sm:ml-64">
-    <div class="p-4 mx-3">
+<div class="ps-4 sm:ml-64">
+    <div class="p-4 mx-6">
         <div class="flex items-center justify-between rounded-lg ">
 
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse mb-4">
@@ -34,7 +34,7 @@
             
             {{-- Profile --}}
             <div class="relative">
-                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-12 h-12 rounded-full cursor-pointer" src="{{ asset('images/kyaa.jpg') }}" alt="User dropdown">
+                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-12 h-12 rounded-full cursor-pointer" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff&size=100" alt="User dropdown">
                 <span class="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2  rounded-full"></span>
             </div>
 
@@ -97,53 +97,72 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($allResep as $key => $resep)
-                                <tr class="hover:bg-gray-100 transition duration-200">
-                                    <td class=" px-4 py-2 text-gray-800 font-medium">
-                                        {{ $key + 1 }}
-                                    </td>
-                                    <td class=" px-4 py-2 text-gray-800 font-medium">
-                                        {{ $resep->nama_resep }}
-                                    </td>
-                                    <td class=" px-4 py-2">
-                                        {{ $resep->kesulitan }}
-                                    </td>
-                                    <td class=" px-4 py-2">
-                                        {{ $resep->waktu }}
-                                    </td>
-                                    <td class=" px-4 py-2">
-                                        {{ $resep->porsi }}
-                                    </td>
-                                    <td class=" px-4 py-2">
-                                        {{ $resep->kategori->nama_kategori }}
-                                    </td>
-            
-                                    <td class=" px-4 py-2 text-center">
-                                        <div class="flex justify-center space-x-3">
-                                            <a href="{{ route('resep.edit', $resep->id) }}" class="text-blue-500 hover:text-blue-700 ">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                                                  </svg>
-                                            </a>
-            
-                                            <a href="{{ route('resep.show', $resep->id) }}" class="text-yellow-400 hover:text-yellow-700 ">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
-                                                  </svg>
-                                            </a>
-                                            <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus resep ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-500 hover:text-red-800">
-                                                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                                      </svg>                                          
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                @if ($allResep->isEmpty())
+                                    <tr>
+                                        <td colspan="10">
+                                            <div class="flex flex-col items-center justify-center text-center text-gray-600 py-6">
+                                                <svg class="w-16 h-16 mb-3 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                        d="m4 12 2.66667-1 2.66666 1L12 11l2.6667 1 2.6666-1L20 12m-1 5H5v1c0 1.1046.89543 2 
+                                                        2 2h10c1.1046 0 2-.8954 2-2v-1ZM5 9.00003h14v-1c0-2.20914-1.7909-4-4-4H9c-2.20914 0-4 
+                                                        1.79086-4 4v1ZM18.5 14h-13c-.82843 0-1.5.6716-1.5 1.5 0 .8285.67157 1.5 1.5 
+                                                        1.5h13c.8284 0 1.5-.6715 1.5-1.5 0-.8284-.6716-1.5-1.5-1.5Z" />
+                                                </svg>
+                                                <p class="text-lg font-semibold">Belum ada resep yang dibuat</p>
+                                                <p class="text-sm text-gray-500">Maaf, resep belum dibuat admin!</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @else
+                                    @foreach ($allResep as $key => $resep)
+                                        <tr class="hover:bg-gray-100 transition duration-200">
+                                            <td class=" px-4 py-2 text-gray-800 font-medium">
+                                                {{ $key + 1 }}
+                                            </td>
+                                            <td class=" px-4 py-2 text-gray-800 font-medium">
+                                                {{ $resep->nama_resep }}
+                                            </td>
+                                            <td class=" px-4 py-2">
+                                                {{ $resep->kesulitan }}
+                                            </td>
+                                            <td class=" px-4 py-2">
+                                                {{ $resep->waktu }}
+                                            </td>
+                                            <td class=" px-4 py-2">
+                                                {{ $resep->porsi }}
+                                            </td>
+                                            <td class=" px-4 py-2">
+                                                {{ $resep->kategori->nama_kategori }}
+                                            </td>
+                    
+                                            <td class=" px-4 py-2 text-center">
+                                                <div class="flex justify-center space-x-3">
+                                                    <a href="{{ route('resep.edit', $resep->id) }}" class="text-blue-500 hover:text-blue-700 ">
+                                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                                        </svg>
+                                                    </a>
+                    
+                                                    <a href="{{ route('resep.show', $resep->id) }}" class="text-yellow-400 hover:text-yellow-700 ">
+                                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                                                        </svg>
+                                                    </a>
+                                                    <form action="{{ route('resep.destroy', $resep->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus resep ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:text-red-800">
+                                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                            </svg>                                          
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

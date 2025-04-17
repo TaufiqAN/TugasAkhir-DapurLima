@@ -11,16 +11,34 @@
         </div>
 
         <!-- Form -->
-        <form action="{{ route('kategori.update', $kategori->id) }}" method="POST">
+        <form action="{{ route('kategori.update', $kategori->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <!-- Nama Kategori -->
-            <div class="mb-5">
-                <label for="name" class="block text-gray-700 font-medium mb-2">Nama Kategori</label>
-                <input type="text" id="name" name="nama_kategori" value="{{ $kategori->nama_kategori }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-300 focus:outline-none transition duration-300">
+            <div class="mb-4" x-data="{ preview: '{{ asset('storage/' . $kategori->image) }}' }">
+                <label class="block text-gray-700 font-medium">Gambar Resep</label>
+                <img :src="preview" class="w-32 h-32 object-cover rounded shadow mt-2">
+                <input type="file" name="image" class="mt-3 w-full border border-gray-300 rounded-lg p-2"
+                       @change="preview = URL.createObjectURL($event.target.files[0])">
+                @error('image')
+                   <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
             </div>
+
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-medium mb-2">Nama Kategori</label>
+                <input type="text" name="nama_kategori" value="{{ $kategori->nama_kategori }}" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm">
+                @error('nama_kategori')
+                   <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-medium">Background</label>
+                <input type="color" name="background_color" value="{{ $kategori->background_color }}" class="w-16 h-10 mt-2 border rounded-lg">
+            </div>
+
 
             <!-- Tombol Aksi -->
             <div class="flex justify-end space-x-4 mt-6">
@@ -29,7 +47,7 @@
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
                     </svg>
-                    Batal
+                    Kembali
                 </a>
                 <button type="submit" 
                     class="flex items-center px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition duration-300 shadow-md">

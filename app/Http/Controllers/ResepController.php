@@ -47,11 +47,7 @@ class ResepController extends Controller
         //     'kategori_id' => 'required',
         // ]);
 
-         // Simpan Gambar
         $imagePath = $request->file('image')->store('recipes', 'public');
-
-        // Save data
-        // Resep::create($validatedData);
 
         Resep::create([
             'nama_resep' => $request->nama_resep,
@@ -106,12 +102,10 @@ class ResepController extends Controller
         // ]);
 
         if ($request->hasFile('image')) {
-            // Hapus gambar lama jika ada
             if ($resep->image) {
                 Storage::delete('public/' . $resep->image);
             }
-    
-            // Simpan gambar baru
+            
             $imagePath = $request->file('image')->store('images', 'public');
             $resep->image = $imagePath;
         }
@@ -169,5 +163,13 @@ class ResepController extends Controller
     {
         $resep->delete();
         return redirect()->route('resep.index');
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->query('q');
+        $resep = Resep::where('nama_resep', 'like', '%' . $keyword . '%')->get(); 
+
+        return view('resep.search', compact('resep', 'keyword')); 
     }
 }

@@ -6,8 +6,8 @@
 <div class="max-w-6xl mx-auto py-24">
     <!-- Judul Utama -->
     <div class="my-10">
-        <h2 class="text-3xl font-bold text-center text-gray-800 font-jakarta">Kategori Resep</h2>
-        <p class="text-sm text-center text-green-700 mt-2">Pilih kategori kesukaanmu</p>
+        <h2 class="text-3xl font-bold text-center text-gray-800 font-jakarta">Resep Masakan</h2>
+        <p class="text-sm text-center text-green-700 mt-2">Temukan dan coba resep pilihanmu.</p>
     </div>
 
     <!-- Grid Card -->
@@ -56,7 +56,7 @@
                 </div>
 
                 <p class="text-sm flex items-center gap-4 mt-2">
-                    <!-- Ikon Waktu -->
+                     {{-- Ikon Waktu  --}}
                     <span class="flex items-center gap-1">
                         <svg class="w-4 h-4 text-green-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
@@ -65,15 +65,17 @@
                         <span>{{ $resep->waktu }} Menit</span>
                     </span>
 
-                    <!-- Ikon Rating -->
+                    {{-- Rating  --}}
                     <span class="flex items-center gap-1">
-                        <svg class="w-4 h-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M13.849 4.22c-.684-1.626-3.014-1.626-3.698 0L8.397 8.387l-4.552.361c-1.775.14-2.495 
-                                    2.331-1.142 3.477l3.468 2.937-1.06 4.392c-.413 1.713 1.472 3.067 2.992 2.149L12 
-                                    19.35l3.897 2.354c1.52.918 3.405-.436 2.992-2.15l-1.06-4.39 3.468-2.938c1.353-1.146
-                                    .633-3.336-1.142-3.477l-4.552-.36-1.754-4.17Z"/>
-                        </svg>
-                        <span class="font-semibold text-yellow-400">4.8</span>
+                        @if($resep->total_rating)
+                            <span class="text-yellow-500 font-semibold text-sm">
+                                ★ {{ number_format($resep->total_rating, 1) }} 
+                            </span>
+                        @else
+                            <span class="text-yellow-500 font-semibold text-sm">
+                                ★ {{ number_format($resep->total_rating, 1) }} 
+                            </span>
+                        @endif
                     </span>
                 </p>
             </div>

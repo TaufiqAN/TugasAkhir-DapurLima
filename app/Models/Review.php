@@ -23,4 +23,21 @@ class Review extends Model
     {
         return $this->belongsTo(Resep::class);
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    // Review Like //
+    public function likes()
+    {
+        return $this->hasMany(ReviewLike::class);
+    }
+    
+    public function LikedBy($user)
+    {
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
+    
 }

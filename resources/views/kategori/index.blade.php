@@ -9,8 +9,8 @@
     <div class="w-full h-2/5 bg-[#2EAF2A]"></div>
 </div>
 
-<div class="p-4 sm:ml-64">
-    <div class="p-4 mx-3">
+<div class="ps-4 sm:ml-64">
+    <div class="p-4 mx-6">
         <div class="flex items-center justify-between rounded-lg ">
 
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse mb-4">
@@ -27,14 +27,14 @@
                     <svg class="rtl:rotate-180 w-3 h-3 text-white mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <a href="#" class="ms-1 text-sm font-medium text-white hover:text-blue-600 md:ms-2  dark:hover:text-white">Dashboard</a>
+                    <a href="/dashboard" class="ms-1 text-sm font-medium text-white hover:text-blue-600 md:ms-2  dark:hover:text-white">Dashboard</a>
                   </div>
                 </li>
             </ol>
             
             {{-- Profile --}}
             <div class="relative">
-                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-12 h-12 rounded-full cursor-pointer" src="{{ asset('images/kyaa.jpg') }}" alt="User dropdown">
+                <img id="avatarButton" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="w-12 h-12 rounded-full cursor-pointer" src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=random&color=fff&size=100"  alt="User dropdown">
                 <span class="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-400 border-2  rounded-full"></span>
             </div>
 
@@ -77,12 +77,13 @@
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-gray-700">Daftar Kategori</h2>
                         <!-- Button Tambah Kategori -->
-                        <button onclick="toggleModal()" class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 shadow-md">
-                            + Tambah Kategori
-                        </button>
+                        <a href="{{ route('kategori.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex">
+                            <svg class="w-6 h-6  me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                            Tambah Kategori
+                        </a>
                     </div>
-            
-                    @include('modal.create_kategori')
             
                     {{-- Tabel Kategori --}}
                     <div class="overflow-x-auto rounded-lg shadow-md">
@@ -90,48 +91,78 @@
                             <thead class="bg-green-700 text-white uppercase">
                                 <tr>
                                     <th class="px-4 py-3 w-16">No</th>
+                                    <th class="px-4 py-3 text-center">Gambar</th>
+                                    <th class="px-4 py-3 text-center">Warna</th>
                                     <th class="px-4 py-3">Nama Kategori</th>
                                     <th class="px-4 py-3 text-center">Jumlah Resep</th>
                                     <th class="px-4 py-3 text-center w-32">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($allKategori as $key => $kategori)
-                                <tr class="hover:bg-gray-100 transition duration-200">
-                                    <td class="px-4 py-3 text-gray-700 font-medium">{{ $key + 1 }}</td>
-                                    <td class="px-4 py-3 text-gray-900 font-medium">{{ $kategori->nama_kategori }}</td>
-                                    <td class="px-4 py-3 text-center font-semibold text-green-700">{{ $kategori->resep_count }}</td>
-                                    <td class="px-4 py-3 text-center">
-                                        <div class="flex justify-center space-x-3">
-                                            <a href="{{ route('kategori.edit', $kategori->id) }}" class="text-blue-500 hover:text-blue-700 transition">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                                                          d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                @if ($allKategori->isEmpty())
+                                    <tr>
+                                        <td colspan="4">
+                                            <div class="flex flex-col items-center justify-center text-center text-gray-600 py-6">
+                                                <svg class="w-16 h-16 mb-3 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                        d="m4 12 2.66667-1 2.66666 1L12 11l2.6667 1 2.6666-1L20 12m-1 5H5v1c0 1.1046.89543 2 
+                                                        2 2h10c1.1046 0 2-.8954 2-2v-1ZM5 9.00003h14v-1c0-2.20914-1.7909-4-4-4H9c-2.20914 0-4 
+                                                        1.79086-4 4v1ZM18.5 14h-13c-.82843 0-1.5.6716-1.5 1.5 0 .8285.67157 1.5 1.5 
+                                                        1.5h13c.8284 0 1.5-.6715 1.5-1.5 0-.8284-.6716-1.5-1.5-1.5Z" />
                                                 </svg>
-                                            </a>
-            
-                                            <a href="{{ route('kategori.show', $kategori->id) }}" class="text-yellow-400 hover:text-yellow-600 transition">
-                                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                          d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
-                                                </svg>
-                                            </a>
-            
-                                            <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST"
-                                                  onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-500 hover:text-red-700 transition">
-                                                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                              d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                                                    </svg>                                          
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                                <p class="text-lg font-semibold">Belum ada kategori yang dibuat</p>
+                                                <p class="text-sm text-gray-500">Maaf, kategori belum dibuat admin!</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @else
+                                    @foreach ($allKategori as $key => $kategori)
+                                        <tr class="hover:bg-gray-100 transition duration-200">
+                                            <td class="px-4 py-3 text-gray-700 font-medium">{{ $key + 1 }}</td>
+                                            <td class="px-4 py-3 font-medium">
+                                                <img src="{{ asset('storage/' . $kategori->image) }}" class="w-16 h-16 mx-auto mb-2 rounded-full object-cover">
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                <div class="w-10 h-10 mx-auto rounded-full shadow-md border border-gray-300"
+                                                    style="background-color: {{ $kategori->background_color }}">
+                                                </div>
+                                            </td>
+                                            <td class="px-4 py-3 text-gray-900 font-medium">{{ $kategori->nama_kategori }}</td>
+                                            
+                                            <td class="px-4 py-3 text-center font-semibold text-green-700">{{ $kategori->resep_count }}</td>
+                                            <td class="px-4 py-3 text-center">
+                                                <div class="flex justify-center space-x-3">
+                                                    <a href="{{ route('kategori.edit', $kategori->id) }}" class="text-blue-500 hover:text-blue-700 transition">
+                                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                                                d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                                        </svg>
+                                                    </a>
+                    
+                                                    <a href="{{ route('kategori.show', $kategori->id) }}" class="text-yellow-400 hover:text-yellow-600 transition">
+                                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M10 3v4a1 1 0 0 1-1 1H5m4 8h6m-6-4h6m4-8v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7.914a1 1 0 0 1 .293-.707l3.914-3.914A1 1 0 0 1 9.914 3H18a1 1 0 0 1 1 1Z"/>
+                                                        </svg>
+                                                    </a>
+                    
+                                                    <form action="{{ route('kategori.destroy', $kategori->id) }}" method="POST"
+                                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:text-red-700 transition">
+                                                            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                                            </svg>                                          
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

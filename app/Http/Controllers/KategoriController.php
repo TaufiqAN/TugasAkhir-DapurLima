@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class KategoriController extends Controller
 {
@@ -32,7 +33,13 @@ class KategoriController extends Controller
         // validasi
         $validatedData = $request->validate([
             'nama_kategori' => 'required|max:50',
+            'background_color' => 'required|string|max:7',
+            'image' => 'required|image|mimes:png,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('kategori', 'public');
+        }
 
         // Save data
         Kategori::create($validatedData);
@@ -65,7 +72,17 @@ class KategoriController extends Controller
          // validasi
          $validatedData = $request->validate([
             'nama_kategori' => 'required|max:50',
+            'background_color' => 'string|max:7',
+            'image' => 'image|mimes:png,svg|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            if ($kategori->image) {
+                Storage::disk('public')->delete($kategori->image);
+            }
+
+            $validatedData['image'] = $request->file('image')->store('kategori', 'public');
+        }
 
         // update data
         $kategori->update($validatedData);

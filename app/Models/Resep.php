@@ -34,5 +34,11 @@ class Resep extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function getTotalRatingAttribute()
+    {
+        return $this->reviews()->avg('rating') ?? 0;
+    }
+
 }
 

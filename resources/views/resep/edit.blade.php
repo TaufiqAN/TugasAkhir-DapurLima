@@ -8,7 +8,7 @@
         @method('PUT')
 
         <div class="grid md:grid-cols-2 gap-6">
-            <!-- Gambar Resep -->
+            {{-- Gambar --}}
             <div x-data="{ preview: '{{ asset('storage/' . $resep->image) }}' }">
                 <label class="block text-gray-700 font-semibold">Gambar Resep</label>
                 <img :src="preview" class="h-64 w-full object-cover rounded-lg shadow mt-2">
@@ -16,7 +16,7 @@
                        @change="preview = URL.createObjectURL($event.target.files[0])">
             </div>
 
-            <!-- Detail Resep -->
+             {{-- Detail Resep  --}}
             <div>
                 <label class="block text-gray-700 font-semibold">Nama Resep</label>
                 <input type="text" name="nama_resep" value="{{ old('nama_resep', $resep->nama_resep) }}" class="w-full border border-gray-300 rounded-lg p-2 mt-2">
@@ -24,7 +24,6 @@
                 <label class="block text-gray-700 font-semibold mt-4">Deskripsi</label>
                 <textarea name="deskripsi" class="w-full border border-gray-300 rounded-lg p-2 mt-2">{{ old('deskripsi', $resep->deskripsi) }}</textarea>
 
-                <!-- Informasi Resep -->
                 <div class="mt-4 grid grid-cols-2 gap-2">
                     <div>
                         <label class="block text-gray-700 font-semibold">Kategori</label>
@@ -56,40 +55,10 @@
             </div>
         </div>
 
-        {{-- <!-- Bahan -->
-        <div class="mt-8 grid md:grid-cols-2 gap-6">
-            <div class="bg-blue-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-bold text-blue-700">Bahan</h3>
-                <ul class="mt-2 list-none space-y-3">
-                    @foreach(json_decode($resep->bahan) as $index => $bahann)
-                        <li class="flex items-center space-x-3 text-gray-800">
-                            <input type="text" name="bahan[]" value="{{ $bahann }}" class="w-full p-2 border border-gray-300 rounded-lg">
-                            <button type="submit" name="hapus_bahan" value="{{ $index }}" class="text-red-500 font-bold">✖</button>
-                        </li>
-                    @endforeach
-                </ul>
-                <button type="submit" name="tambah_bahan" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Bahan</button>
-            </div>
-
-            <!-- Cara Membuat -->
-            <div class="bg-green-100 p-4 rounded-lg shadow">
-                <h3 class="text-lg font-bold text-green-700">Cara Membuat</h3>
-                <ul class="mt-2 list-none space-y-3">
-                    @foreach(json_decode($resep->cara_membuat) as $index => $cara_membuatt)
-                        <li class="flex items-center space-x-3 text-gray-800">
-                            <input type="text" name="cara_membuat[]" value="{{ $cara_membuatt }}" class="w-full p-2 border border-gray-300 rounded-lg">
-                            <button type="submit" name="hapus_cara" value="{{ $index }}" class="text-red-500 font-bold">✖</button>
-                        </li>
-                    @endforeach
-                </ul>
-                <button type="submit" name="tambah_cara" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Langkah</button>
-            </div>
-        </div> --}}
-
-        <!-- Bahan & Cara Membuat -->
+        {{-- Bahan & Cara Membuat  --}}
         <div class="mt-8 grid md:grid-cols-2 gap-6">
 
-            <!-- Bahan -->
+            {{-- Bahan --}}
             <div class="bg-blue-100 p-4 rounded-lg shadow">
                 <h3 class="text-lg font-bold text-blue-700">Bahan</h3>
                 <ul id="bahan-list" class="mt-2 list-none space-y-3">
@@ -103,7 +72,7 @@
                 <button type="button" id="tambah-bahan" class="mt-2 bg-green-500 text-white px-3 py-1 rounded-lg">Tambah Bahan</button>
             </div>
 
-            <!-- Cara Membuat -->
+            {{-- Cara Membuat  --}}
             <div class="bg-green-100 p-4 rounded-lg shadow">
                 <h3 class="text-lg font-bold text-green-700">Cara Membuat</h3>
                 <ul id="cara-list" class="mt-2 list-none space-y-3">
@@ -120,7 +89,7 @@
         </div>
         
 
-        <!-- Tombol Navigasi -->
+        {{-- Button --}}
         <div class="mt-6 flex justify-between">
             <a href="{{ route('resep.index') }}" 
                class="flex items-center px-5 py-2 bg-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-400 transition duration-300">

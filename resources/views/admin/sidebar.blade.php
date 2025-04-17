@@ -6,14 +6,13 @@
       </svg>      
  </button>
  
- <aside id="logo-sidebar" class=" fixed top-4 left-6 bottom-4 rounded-2xl overflow-y-auto transition-all duration-300 z-40 w-64 h-screen -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-white">
-       <a href="{{ route('home') }}" class="flex items-center justify-center ps-2.5 mb-5">
+ <aside id="logo-sidebar" class=" fixed bottom-4 overflow-y-auto transition-all duration-300 z-40 w-72 h-screen -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto bg-white">
+       <a href="{{ route('home') }}" class="flex items-center justify-start ps-2.5 mb-5">
           <img src="{{ asset('images/logo.png') }}" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
-          <span class="self-center text-2xl font-bubblegum whitespace-nowrap dark:text-gray-700">DapurLima.</span>
+          <span class="self-center text-3xl font-bubblegum whitespace-nowrap py-6 text-gray-700">DapurLima.</span>
        </a>
          <ul class="space-y-2 font-medium">
-            <ul class="pt-4 mt-4 space-y-2 font-medium border-t border-gray-200 dark:border-gray-700">
              <li>
                <a href="/dashboard" class=" flex items-center p-2 text-gray-600 rounded-lg hover:text-gray-100 dark:hover:bg-green-700 group {{ request()->routeIs('dashboard') ? 'bg-green-700 text-white' : '' }}">
                   <svg class="w-5 h-5 transition duration-75 group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
