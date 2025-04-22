@@ -20,11 +20,6 @@
         @endif
     </head>
     <body class="font-poppins bg-white">
-{{-- 
-
-    <div class="w-[9000px] object-cover">
-        <img src="{{ asset('images/food/xiaomay.jpg') }}" alt="">
-    </div> --}}
         
     {{-- Footer  --}}
     <footer class="bg-gradient-to-r from-[#2EAF2A] to-[#1E811B] py-5">
@@ -41,74 +36,61 @@
                     <h2 class="mb-6 text-xl font-semibold text-white">Menu Utama</h2>
                     <ul class="text-white font-medium">
                         <li class="mb-4">
-                            <a href="https://flowbite.com/" class="hover:underline">Beranda</a>
+                            <a href="{{ route('home') }}" class="hover:underline">Beranda</a>
                         </li>
                         <li class="mb-4">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Resep</a>
+                            <a href="{{ route('resep.semua') }}" class="hover:underline">Resep</a>
                         </li>
                         <li>
-                            <a href="https://tailwindcss.com/" class="hover:underline">Tentang</a>
+                            <a href="{{ route('tentang') }}" class="hover:underline">Tentang</a>
                         </li>
                     </ul>
                 </div>
-                <div>
+                {{-- <div>
                     <h2 class="mb-6 text-xl font-semibold text-white">Legal</h2>
                     <ul class="text-white font-medium">
                         <li class="mb-4">
                             <a href="https://github.com/themesberg/flowbite" class="hover:underline ">Pemberitahuan Privasi </a>
                         </li>
-                        <li class="mb-4">
-                            <a href="https://discord.gg/4eeurUVvTy" class="hover:underline">Pemberitahuian Cookie</a>
-                        </li>
+                        
                         <li>
                             <a href="https://discord.gg/4eeurUVvTy" class="hover:underline">Kontak kami</a>
                         </li>
                     </ul>
-                </div>
+                </div> --}}
                 <div>
                     <h2 class="mb-6 text-xl font-semibold text-white">Ikuti Kami</h2>
                     <ul class="text-white font-medium">
-                        <li class="mb-4">
-                            <a href="#" class="hover:underline">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                        </li>
+                        <div class="flex mt-4 sm:mt-0">
+                            <a href="#" class="text-white">
+                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
+                                        <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="sr-only">Facebook page</span>
+                            </a>
+                            <a href="https://x.com/TaufiqAdi0" class="text-white ms-5">
+                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 17">
+                                    <path fill-rule="evenodd" d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="sr-only">Twitter page</span>
+                            </a>
+                            <a href="https://www.instagram.com/taufik4375/" class="text-white ms-5">
+                                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path fill="currentColor" fill-rule="evenodd" d="M3 8a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8Zm5-3a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm7.597 2.214a1 1 0 0 1 1-1h.01a1 1 0 1 1 0 2h-.01a1 1 0 0 1-1-1ZM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm-5 3a5 5 0 1 1 10 0 5 5 0 0 1-10 0Z" clip-rule="evenodd"/>
+                                  </svg>
+                                    
+                                <span class="sr-only">Instagram page</span>
+                            </a>
+                        </div>
                     </ul>
                 </div>
             </div>
         </div>
         <hr class="my-6 border-white sm:mx-auto lg:my-8" />
-        <div class="sm:flex sm:items-center sm:justify-between">
+        <div class="sm:flex sm:items-center sm:justify-center">
             <span class="text-sm text-white sm:text-center">© 2025 <a href="#" class="hover:underline">DapurLima</a>. All Rights Reserved.
             </span>
-            <div class="flex mt-4 sm:justify-center sm:mt-0">
-                <a href="#" class="text-white hover:text-gray-900 dark:hover:text-white">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 8 19">
-                            <path fill-rule="evenodd" d="M6.135 3H8V0H6.135a4.147 4.147 0 0 0-4.142 4.142V6H0v3h2v9.938h3V9h2.021l.592-3H5V3.591A.6.6 0 0 1 5.592 3h.543Z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="sr-only">Facebook page</span>
-                </a>
-                <a href="#" class="text-white hover:text-gray-900 dark:hover:text-white ms-5">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 17">
-                        <path fill-rule="evenodd" d="M20 1.892a8.178 8.178 0 0 1-2.355.635 4.074 4.074 0 0 0 1.8-2.235 8.344 8.344 0 0 1-2.605.98A4.13 4.13 0 0 0 13.85 0a4.068 4.068 0 0 0-4.1 4.038 4 4 0 0 0 .105.919A11.705 11.705 0 0 1 1.4.734a4.006 4.006 0 0 0 1.268 5.392 4.165 4.165 0 0 1-1.859-.5v.05A4.057 4.057 0 0 0 4.1 9.635a4.19 4.19 0 0 1-1.856.07 4.108 4.108 0 0 0 3.831 2.807A8.36 8.36 0 0 1 0 14.184 11.732 11.732 0 0 0 6.291 16 11.502 11.502 0 0 0 17.964 4.5c0-.177 0-.35-.012-.523A8.143 8.143 0 0 0 20 1.892Z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="sr-only">Twitter page</span>
-                </a>
-                <a href="#" class="text-white hover:text-gray-900 dark:hover:text-white ms-5">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd" d="M21.7 8.037a4.26 4.26 0 0 0-.789-1.964 2.84 2.84 0 0 0-1.984-.839c-2.767-.2-6.926-.2-6.926-.2s-4.157 0-6.928.2a2.836 2.836 0 0 0-1.983.839 4.225 4.225 0 0 0-.79 1.965 30.146 30.146 0 0 0-.2 3.206v1.5a30.12 30.12 0 0 0 .2 3.206c.094.712.364 1.39.784 1.972.604.536 1.38.837 2.187.848 1.583.151 6.731.2 6.731.2s4.161 0 6.928-.2a2.844 2.844 0 0 0 1.985-.84 4.27 4.27 0 0 0 .787-1.965 30.12 30.12 0 0 0 .2-3.206v-1.516a30.672 30.672 0 0 0-.202-3.206Zm-11.692 6.554v-5.62l5.4 2.819-5.4 2.801Z" clip-rule="evenodd"/>
-                    </svg>  
-                    <span class="sr-only">Youtube page</span>
-                </a>
-                <a href="#" class="text-white hover:text-gray-900 dark:hover:text-white ms-5">
-                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z" clip-rule="evenodd"/>
-                    </svg>
-                    <span class="sr-only">GitHub account</span>
-                </a>
-            </div>
-        </div>
+            
         </div>
     </footer>
 

@@ -22,7 +22,17 @@ class ReplyController extends Controller
             'content' => $request->content,
         ]);
 
-        return response()->json($reply->load('user'));
+        $reply->load('user');
+
+        return response()->json([
+            'id' => $reply->id,
+            'content' => $reply->content,
+            'created_at' => $reply->created_at->toDateTimeString(),
+            'user' => [
+                'id' => $reply->user->id,
+                'name' => $reply->user->name,
+            ]
+        ]);
     }
 
     public function loadReply($reviewId)

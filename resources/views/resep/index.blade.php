@@ -79,9 +79,12 @@
                                Tambah Resep
                         </a>
                     </div>
-            
-                    {{-- @include('modal.create_resep') --}}
-            
+                    
+                    @if(session('success'))
+                        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
             
                     <div class="overflow-x-auto rounded-lg shadow-md">
                         <table class="w-full border-collapse text-sm text-left text-gray-600">

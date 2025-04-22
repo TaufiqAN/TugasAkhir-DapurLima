@@ -9,6 +9,48 @@ use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
+    public function daftar()
+    {
+        $reviews = Review::with(['user', 'resep'])
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.reviews', compact('reviews'));
+    }
+
+    public function destroy(Review $review)
+    {
+        $user =Auth::user();
+
+        // if ($user->is_admin) {
+        //     $review->delete();
+        //     return redirect()->back()->with('success', 'Ulasan berhasil dihapus oleh admin.');
+        // }
+    
+        // if ($user->id === $review->user_id) {
+        //     $review->delete();
+        //     return back()->with('success', 'Ulasan kamu berhasil dihapus.');
+        // }
+
+
+
+        if ($user->role === 'admin') {
+            $review->delete();
+            return redirect()->back()->with('success', 'Ulasan berhasil dihapus oleh admin.');
+        }
+    
+        // Kalau bukan admin, hanya boleh hapus ulasan miliknya sendiri
+        if ($review->user_id === $user->id) {
+            $review->delete();
+            return redirect()->back()->with('success', 'Ulasan kamu berhasil dihapus.');
+        }
+
+        $review->delete();
+
+        return back()->with('success', 'Ulasan berhasil dihapus.');
+    }
+
+
     public function store(Request $request, Resep $resep) 
     {
         $request->validate([

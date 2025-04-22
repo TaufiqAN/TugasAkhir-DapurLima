@@ -44,8 +44,14 @@ class UserResepController extends Controller
     public function show(Resep $resep)
     {
         $allResep = Resep::latest()->paginate(3);
-        $resep->load('reviews.user'); 
-        return view('makanan.detail', compact('resep', 'allResep'));
+        // $resep->load('reviews.user');
+        
+        $reviews = $resep->reviews()
+                     ->with('user')
+                     ->orderBy('created_at', 'desc')
+                     ->paginate(3);
+
+        return view('makanan.detail', compact('resep', 'allResep', 'reviews'));
     }
 
     /**

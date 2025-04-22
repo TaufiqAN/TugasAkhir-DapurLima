@@ -18,31 +18,31 @@
                         </a>
         
                         <div class="mt-4 text-gray-900 text-start group-hover:text-green-700 transition-all duration-300 flex justify-between items-center">
-                            <!-- Nama resep dengan link -->
+                             {{-- Nama resep dengan link --}}
                             <a href="{{ route('makanan.detail', $resep->id) }}" class="text-lg font-semibold">
                                 {{ $resep->nama_resep }}
                             </a>
         
-                            <!-- Bookmark Icon -->
-                            @auth
-                                @php
-                                    $isSaved = auth()->user()->saves->contains('resep_id', $resep->id);
-                                @endphp
-                                <button class="save-btn transition duration-300" data-resep-id="{{ $resep->id }}">
-                                    @if ($isSaved)
-                                        <!-- Sudah disimpan -->
-                                        <svg class="w-8 h-8 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-label="Tersimpan">
-                                            <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
-                                        </svg>
-                                    @else
-                                        <!-- Belum disimpan -->
-                                        <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-label="Simpan">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17 21l-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21z" />
-                                        </svg>
-                                    @endif
-                                </button>
-                            @endauth
+                             {{-- Bookmark Icon --}}
+                           
+                            @php
+                                $isSaved = auth()->check() && auth()->user()->saves->contains('resep_id', $resep->id);
+                            @endphp
+                            <button class="save-btn transition duration-300" data-resep-id="{{ $resep->id }}"
+                                @guest onclick="showLoginModal()" @endguest>
+                                @if ($isSaved)
+                                        {{-- Sudah disimpan --}}
+                                    <svg class="w-8 h-8 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-label="Tersimpan">
+                                        <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
+                                    </svg>
+                                @else
+                                        {{-- Belum disimpan --}}
+                                    <svg class="w-8 h-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-label="Simpan">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 21l-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21z" />
+                                    </svg>
+                                @endif
+                            </button>
                         </div>
         
                         <p class="text-sm flex items-center gap-2">

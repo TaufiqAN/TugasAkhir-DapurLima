@@ -9,6 +9,7 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ResepController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SaveController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserResepController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Middleware\Role;
@@ -19,6 +20,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+Route::get('/tentang-kami', function () {
+    return view('makanan.tentang');
+})->name('tentang');
 
 //  Register 
 Route::post('/register', [AuthController::class, 'register']);
@@ -47,11 +51,15 @@ Route::group(['middleware' => ['auth', 'role:user', 'status']], function(){
     
     Route::group(['middleware' => ['auth', 'role:admin']], function(){
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/reviews', [ReviewController::class, 'daftar'])->name('admin.reviews');
+        Route::get('/users', [UserController::class, 'index'])->name('admin.users');
         Route::resource('kategori', KategoriController::class);
         Route::resource('/resep', ResepController::class);
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
     });
-
-Route::middleware(['auth'])->group(function () {
+    
+    Route::middleware(['auth'])->group(function () {
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::get('/profile/saved', [ProfileController::class, 'savedResep'])->name('profile.profile');
     Route::post('/save/{resepId}', [SaveController::class, 'saveResep'])->name('profile.save');

@@ -84,6 +84,12 @@
                             Tambah Kategori
                         </a>
                     </div>
+
+                    @if(session('success'))
+                        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded">
+                            {{ session('success') }}
+                        </div>
+                    @endif
             
                     {{-- Tabel Kategori --}}
                     <div class="overflow-x-auto rounded-lg shadow-md">
@@ -101,7 +107,7 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @if ($allKategori->isEmpty())
                                     <tr>
-                                        <td colspan="4">
+                                        <td colspan="10">
                                             <div class="flex flex-col items-center justify-center text-center text-gray-600 py-6">
                                                 <svg class="w-16 h-16 mb-3 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                     width="24" height="24" fill="none" viewBox="0 0 24 24">

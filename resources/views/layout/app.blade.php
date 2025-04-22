@@ -11,6 +11,8 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <style>
             .hide-scrollbar::-webkit-scrollbar {
                 display: none;
@@ -21,7 +23,6 @@
                 scrollbar-width: none;     /* Firefox */
             }
         </style>
-
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -35,6 +36,25 @@
     <body class="font-poppins bg-white">
         @include('layout.navbar')
         @yield('content')
-
+        
+        <script>
+            function showLoginModal() {
+                Swal.fire({
+                    title: 'Login Dulu Yuk!',
+                    text: "Untuk menyimpan resep, kamu perlu login terlebih dahulu.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#10B981',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Login',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/login';
+                    }
+                })
+            }
+        </script>
+                
     </body >
 </html>

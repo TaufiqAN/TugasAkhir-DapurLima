@@ -7,3 +7,4 @@ import './ulasan.js';
 import './reply.js'
 import './like.js'
 import './password.js'
+import './modals.js';

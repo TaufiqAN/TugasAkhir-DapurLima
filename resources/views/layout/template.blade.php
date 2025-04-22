@@ -23,13 +23,5 @@
     <body class="bg-white">
         @yield('kategori')
         @yield('resep')
-
-
-        {{-- Modal Tambah kategori --}}
-        <script>
-            function toggleModal() {
-                document.getElementById('kategoriModal').classList.toggle('hidden');
-            }
-        </script>
     </body >
 </html>
