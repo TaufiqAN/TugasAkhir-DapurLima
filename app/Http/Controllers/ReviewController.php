@@ -22,18 +22,6 @@ class ReviewController extends Controller
     {
         $user =Auth::user();
 
-        // if ($user->is_admin) {
-        //     $review->delete();
-        //     return redirect()->back()->with('success', 'Ulasan berhasil dihapus oleh admin.');
-        // }
-    
-        // if ($user->id === $review->user_id) {
-        //     $review->delete();
-        //     return back()->with('success', 'Ulasan kamu berhasil dihapus.');
-        // }
-
-
-
         if ($user->role === 'admin') {
             $review->delete();
             return redirect()->back()->with('success', 'Ulasan berhasil dihapus oleh admin.');

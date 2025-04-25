@@ -13,7 +13,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $allKategori = Kategori::withCount('resep')->get();
+        $allKategori = Kategori::withCount('resep')->latest()->get();
         return view('kategori.index', compact('allKategori'));
     }
 

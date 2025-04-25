@@ -12,23 +12,25 @@
         <div>
             <div class="flex justify-between items-start">
                 <h1 class="text-4xl font-bold text-green-700">{{ $resep->nama_resep }}</h1>
-    
+                
+                @auth
                     @php
-                        $isSaved = auth()->check() && auth()->user()->saves->contains('resep_id', $resep->id);
+                        $isSaved = auth()->user()->saves->contains('resep_id', $resep->id);
                     @endphp
                     <button class="save-btn" data-resep-id="{{ $resep->id }}" 
                         @guest onclick="showLoginModal()" @endguest>
                         @if ($isSaved)
-                            <svg class="w-10 h-10 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
-                            </svg>
+                        <svg class="w-10 h-10 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
+                        </svg>
                         @else
-                            <svg class="w-10 h-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 21l-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21z" />
-                            </svg>
+                        <svg class="w-10 h-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 21l-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21z" />
+                        </svg>
                         @endif
                     </button>
+                @endauth
             </div>
     
             {{-- Total Rating --}}
@@ -136,11 +138,11 @@
     @else
     <div class="w-full mx-auto mt-5">
         <div class="p-6 bg-gray-100 text-center rounded-xl">
-            <h2 class="text-xl font-bold text-gray-900">Silahkan login untuk menambah ulasan.</h2>
-            <a href="{{ route('login') }}" 
-               class="mt-4 inline-block px-6 py-2 text-green-600 border border-green-600 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300">
-                Login
-            </a>
+            <h2 class="text-xl font-bold text-gray-900">Jadilah yang pertama mengulas.</h2>
+            <button onclick="showLoginModal()" 
+                class="mt-4 inline-block px-6 py-2 text-green-600 border border-green-600 rounded-full font-medium hover:bg-green-600 hover:text-white transition-all duration-300">
+                Menulis review
+            </button>
         </div>
     </div>
     @endauth
@@ -218,23 +220,27 @@
 
                 
 
-                <button onclick="toggleReplyForm({{ $review->id }})" class="mt-2 text-sm text-blue-600 hover:underline">Balas</button>
+                @auth
+                @if (auth()->user()->role === 'admin')
+                    <button onclick="toggleReplyForm({{ $review->id }})" class="mt-2 text-sm text-blue-600 hover:underline">Balas</button>
 
-                <div id="reply-form-{{ $review->id }}" class="hidden mt-2">
-                    <textarea id="reply-content-{{ $review->id }}" class="w-full border border-gray-300 rounded-lg p-2 text-sm" placeholder="Tulis Balasan"></textarea>
-                    <button onclick="submitReply({{ $review->id }})" class="mt-2 inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Kirim</button>
-                    <span id="loading-{{ $review->id }}" class="hidden text-sm text-gray-500 ml-2">Mengirim...</span>
-                </div>
+                    <div id="reply-form-{{ $review->id }}" class="hidden mt-2">
+                        <textarea id="reply-content-{{ $review->id }}" class="w-full border border-gray-300 rounded-lg p-2 text-sm" placeholder="Tulis Balasan"></textarea>
+                        <button onclick="submitReply({{ $review->id }})" class="mt-2 inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">Kirim</button>
+                        <span id="loading-{{ $review->id }}" class="hidden text-sm text-gray-500 ml-2">Mengirim...</span>
+                    </div>
+                @endif
+                @endauth
 
                 {{-- Balasan --}}
                 <div id="reply-container-{{ $review->id }}" class="mt-2 space-y-2">
-                    @foreach ($review->replies as $reply)
-                        <div class="border-l-4 border-gray-700 pl-4 mt-2">
-                            <p class="font-semibold text-lg text-gray-800">{{ $reply->user->name }}</p>
-                            <p class="text-gray-700">{{ $reply->content }}</p>
-                            <p><span class="text-xs text-gray-500">{{ $reply->created_at->diffForHumans() }}</span></p>
-                        </div>
-                    @endforeach
+                @foreach ($review->replies as $reply)
+                    <div class="p-2 border-l-4 border-gray-700 pl-4 mt-2">
+                        <p class="font-semibold text-lg text-gray-800">{{ $reply->user->name }}</p>
+                        <p class="text-gray-700">{{ $reply->content }}</p>
+                        <p><span class="text-xs text-gray-500">{{ $reply->created_at->diffForHumans() }}</span></p>
+                    </div>
+                @endforeach
                 </div>
             @endforeach
         @endif

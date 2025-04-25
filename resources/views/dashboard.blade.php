@@ -75,25 +75,28 @@
     {{-- Resep Terbaru --}}
     <div class="w-full text-sm text-left rtl:text-right text-gray-500 mb-4">
         <div class="bg-white shadow-lg rounded-lg p-6">
-            <h2 class="text-2xl font-bold text-gray-700 mb-6">Resep Terbaru</h2>
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-gray-800">Resep Terbaru</h2>
+                <a href="{{ route('resep.index') }}" class="text-base text-green-600 font-semibold hover:underline">Lihat semua</a>
+            </div>
 
             <div class="overflow-x-auto rounded-lg shadow-md">
 
                 <table class="w-full border-collapse text-sm text-gray-600">
                     <thead class="bg-green-700 text-white uppercase">
                         <tr>
-                            <th class="px-4 py-3 text-left">Nama Resep</th>
-                            <th class="px-4 py-3">Kategori</th>
-                            <th class="px-4 py-3 text-right">Tanggal</th>
+                            <th class="px-6 py-3 text-left">Nama Resep</th>
+                            <th class="px-6 py-3">Kategori</th>
+                            <th class="px-6 py-3 text-right">Tanggal</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse ($resepTerbaru as $resep)
                             <tr class="hover:bg-gray-100 transition duration-200">
-                                <td class="px-4 py-3 text-gray-700 font-medium">{{ $resep->nama_resep }}</td>
-                                <td class="px-4 py-3 text-gray-900 text-center font-medium">{{ $resep->kategori->nama_kategori }}</td>
+                                <td class="px-6 py-3 text-gray-700 font-medium">{{ $resep->nama_resep }}</td>
+                                <td class="px-6 py-3 text-gray-900 text-center font-medium">{{ $resep->kategori->nama_kategori }}</td>
                                 
-                                <td class="px-4 py-3 text-right font-semibold text-green-700">{{ $resep->created_at->format('d M Y') }}</td>
+                                <td class="px-6 py-3 text-right font-semibold text-green-700">{{ $resep->created_at->format('d M Y') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -116,7 +119,6 @@
             </div>
         @endif
 
-        {{-- Ulasan --}}
         <div class="overflow-x-auto rounded-lg shadow-md">
             <table class="w-full border-collapse text-sm text-left text-gray-600">
                 <thead class="bg-green-700 text-white uppercase">

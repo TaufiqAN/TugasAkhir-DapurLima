@@ -127,8 +127,8 @@
                         @php
                             $isSaved = auth()->check() && auth()->user()->saves->contains('resep_id', $resep->id);
                         @endphp
-                        <button class="save-btn" data-resep-id="{{ $resep->id }}" 
-                            @guest onclick="showLoginModal()" @endguest>
+                        <button class="save-btn" data-resep-id="{{ $resep->id }}"
+                            @guest onclick="showLoginModal()"  @endguest>
                             @if ($isSaved)
                                 <svg class="w-7 h-7 sm:w-8 sm:h-8 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
@@ -172,7 +172,7 @@
     {{-- Daftar Masakan --}}
     <div class="max-w-6xl mx-auto py-10 px-4 sm:px-6 lg:px-0">
         <!-- Judul Utama -->
-        <h2 class="text-3xl font-bold text-gray-800 text-start font-jakarta">Daftar Masakan</h2>
+        <h2 class="text-3xl font-bold text-gray-800 text-start font-jakarta">Resep Terbaru</h2>
         <p class="text-sm text-green-700 mt-2">Temukan makanan kesukaanmu</p>
         
         @if ($allResep->isEmpty())

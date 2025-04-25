@@ -71,6 +71,7 @@
             <div class="w-full text-sm text-left rtl:text-right text-gray-500 mb-4  ">
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <div class="flex justify-between items-center mb-4">
+                        
                         <h2 class="text-xl font-bold text-gray-700">Daftar Resep</h2>
                         <a href="{{ route('resep.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 flex">
                             <svg class="w-6 h-6  me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">

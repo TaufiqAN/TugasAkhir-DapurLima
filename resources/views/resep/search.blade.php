@@ -27,9 +27,11 @@
                             <!-- Bookmark Icon -->
                             @auth
                                 @php
-                                    $isSaved = auth()->user()->saves->contains('resep_id', $search->id);
+                                    $isSaved = auth()->check() && auth()->user()->saves->contains('resep_id', $search->id);
+
                                 @endphp
-                                <button class="save-btn transition duration-300" data-resep-id="{{ $search->id }}">
+                                <button class="save-btn transition duration-300" data-resep-id="{{ $search->id }}"
+                                    @guest onclick="showLoginModal()" @endguest>
                                     @if ($isSaved)
                                         <!-- Sudah disimpan -->
                                         <svg class="w-8 h-8 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" aria-label="Tersimpan">

@@ -123,9 +123,9 @@
                                         </td>
                                     </tr>
                                 @else
-                                    @foreach ($allKategori as $key => $kategori)
+                                    @foreach ($allKategori as $kategori)
                                         <tr class="hover:bg-gray-100 transition duration-200">
-                                            <td class="px-4 py-3 text-gray-700 font-medium">{{ $key + 1 }}</td>
+                                            <td class="px-4 py-3 text-gray-700 font-medium">{{ $loop->iteration }}</td>
                                             <td class="px-4 py-3 font-medium">
                                                 <img src="{{ asset('storage/' . $kategori->image) }}" class="w-16 h-16 mx-auto mb-2 rounded-full object-cover">
                                             </td>

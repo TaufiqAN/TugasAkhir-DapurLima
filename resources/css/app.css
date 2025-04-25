@@ -7,5 +7,3 @@
 @layer components {
     @import 'flowbite';
 }
-
-@import './custom.css';

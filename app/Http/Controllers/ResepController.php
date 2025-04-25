@@ -14,7 +14,7 @@ class ResepController extends Controller
      */
     public function index()
     {
-        $allResep = Resep::all();
+        $allResep = Resep::latest()->get();
         return view('resep.index', compact('allResep'));
     }
 
